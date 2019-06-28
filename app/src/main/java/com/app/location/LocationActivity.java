@@ -36,6 +36,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class LocationActivity extends AppCompatActivity {
 
     private static final String TAG = LocationActivity.class.getSimpleName();
@@ -107,13 +111,29 @@ public class LocationActivity extends AppCompatActivity {
     private Boolean mRequestingLocationUpdates;
 
 
+    private String mLastUpdateTimeLabel;
+
+
+    /**
+     * Time when the location was updated represented as a String.
+     */
+    private String mLastUpdateTime;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_location);
 
+
+        mLastUpdateTime = "";
+
         mRequestingLocationUpdates = false;
+
+
+        mLastUpdateTimeLabel = getResources().getString(R.string.last_update_time_label);
+
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         mSettingsClient = LocationServices.getSettingsClient(this);
@@ -266,6 +286,8 @@ public class LocationActivity extends AppCompatActivity {
                 super.onLocationResult(locationResult);
 
                 mCurrentLocation = locationResult.getLastLocation();
+                mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
+
                 updateUI();
             }
         };
@@ -317,6 +339,9 @@ public class LocationActivity extends AppCompatActivity {
         if (mCurrentLocation != null) {
             binding.textViewLat.setText(getString(R.string.latitude_placeholder, String.valueOf(mCurrentLocation.getLatitude())));
             binding.textViewLog.setText(getString(R.string.longitude_placeholder, String.valueOf(mCurrentLocation.getLongitude())));
+
+            binding.lastUpdateTimeText.setText(String.format(Locale.ENGLISH, "%s: %s",
+                    mLastUpdateTimeLabel, mLastUpdateTime));
         }
     }
 
