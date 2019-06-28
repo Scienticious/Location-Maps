@@ -22,6 +22,9 @@
 
     <string name="location_settings_inadequate_warning">The location settings on the device are not
         adequate to run this sample. Fix in Settings.</string>
+    <string name="latitude_placeholder">Latitude %s</string>
+    <string name="longitude_placeholder">Longitude %s</string>
+    <string name="location">Location</string>
 
 
 </resources>

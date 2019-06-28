@@ -1,4 +1,4 @@
-package com.app.experimentsandroid;
+package com.app.location;
 
 import org.junit.Test;
 

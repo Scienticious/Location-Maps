@@ -1,4 +1,4 @@
-package com.app.experimentsandroid;
+package com.app.location;
 
 import android.Manifest;
 import android.content.Intent;
@@ -207,8 +207,8 @@ public class MainActivity extends AppCompatActivity {
     private void startLocationUpdateAndShow() {
         if (!mRequestingLocationUpdates) {
             mRequestingLocationUpdates = true;
-            startLocationUpdates();
             setButtonsEnabledState();
+            startLocationUpdates();
         }
     }
 
